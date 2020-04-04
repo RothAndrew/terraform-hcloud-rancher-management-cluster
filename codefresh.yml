@@ -3,7 +3,6 @@ version: "1.0"
 stages:
   - "clone"
   - "validate"
-  - "build"
   - "test"
 
 steps:
@@ -15,10 +14,9 @@ steps:
     git: "github"
     stage: "clone"
 
-  rothandrew/pre-commit:
-    type: "rothandrew/pre-commit"
+  validate_pre-commit:
     title: "Validate pre-commit hooks"
-    fail_fast: true
+    type: "rothandrew/pre-commit"
     stage: "validate"
     arguments:
       working_directory: '/codefresh/volume/${{CF_REPO_NAME}}'
