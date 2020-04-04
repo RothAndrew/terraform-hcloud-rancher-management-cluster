@@ -1,10 +1,8 @@
-# More examples of Codefresh YAML can be found at
-# https://codefresh.io/docs/docs/yaml-examples/examples/
-
 version: "1.0"
-# Stages can help you organize your steps in stages
+
 stages:
   - "clone"
+  - "validate"
   - "build"
   - "test"
 
@@ -13,11 +11,17 @@ steps:
     title: "Cloning repository"
     type: "git-clone"
     repo: "RothAndrew/terraform-hcloud-rancher-management-cluster"
-    # CF_BRANCH value is auto set when pipeline is triggered
-    # Learn more at codefresh.io/docs/docs/codefresh-yaml/variables/
     revision: "${{CF_BRANCH}}"
     git: "github"
     stage: "clone"
+
+  rothandrew/pre-commit:
+    type: "rothandrew/pre-commit"
+    title: "Validate pre-commit hooks"
+    fail_fast: true
+    stage: "validate"
+    arguments:
+      working_directory: '/codefresh/volume/${{CF_REPO_NAME}}'
 
   test:
     title: "Running test"
