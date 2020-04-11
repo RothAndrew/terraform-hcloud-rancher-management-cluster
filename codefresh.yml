@@ -3,7 +3,6 @@ version: "1.0"
 stages:
   - "clone"
   - "validate"
-  - "test"
 
 steps:
   clone:
@@ -20,12 +19,3 @@ steps:
     stage: "validate"
     arguments:
       working_directory: '/codefresh/volume/${{CF_REPO_NAME}}'
-
-  test:
-    title: "Running test"
-    type: "freestyle" # Run any command
-    image: "ubuntu:latest" # The image in which command will be executed
-    working_directory: "${{clone}}" # Running command where code cloned
-    commands:
-      - "ls"
-    stage: "test"
