@@ -13,7 +13,7 @@ steps:
     git: github
     stage: clone
 
-  terraform-init:
+  terraform_init:
     title: Run terraform init
     stage: validate
     type: freestyle
@@ -21,7 +21,7 @@ steps:
     commands:
       - terraform init
 
-  validate-pre-commit:
+  validate_pre_commit:
     title: Validate pre-commit hooks
     type: rothandrew/pre-commit
     stage: validate
