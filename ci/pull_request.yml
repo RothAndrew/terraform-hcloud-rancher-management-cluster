@@ -5,7 +5,7 @@ stages:
   - validate
 
 steps:
-  clone:
+  main_clone:
     title: Cloning repository
     type: git-clone
     repo: RothAndrew/terraform-hcloud-rancher-management-cluster
