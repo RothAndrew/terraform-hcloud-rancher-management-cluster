@@ -1,0 +1,29 @@
+version: 1.0
+
+stages:
+  - clone
+  - validate
+
+steps:
+  main_clone:
+    title: Cloning repository
+    type: git-clone
+    repo: RothAndrew/terraform-hcloud-rancher-management-cluster
+    revision: ${{CF_BRANCH}}
+    git: github
+    stage: clone
+
+  terraform_init:
+    title: Run terraform init
+    stage: validate
+    type: freestyle
+    image: dadsgarage/dadsgarage:0.3.2
+    commands:
+      - terraform init
+
+  validate_pre_commit:
+    title: Validate pre-commit hooks
+    type: rothandrew/pre-commit
+    stage: validate
+    arguments:
+      working_directory: /codefresh/volume/${{CF_REPO_NAME}}
